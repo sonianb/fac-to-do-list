@@ -20,4 +20,6 @@ Project brief: build a to-do list tracker that allows users to create, complete,
 - A responsive, mobile-first design
 - Ensure app is accessible to as many different users as possible
 
+## Design
 
+[Sketches on Figma](https://www.figma.com/file/wCsxw4SBEjmGAlt2lSkMcl/FAC-to-do-list-project?node-id=0%3A1)
