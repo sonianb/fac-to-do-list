@@ -42,7 +42,7 @@ class ToDoList {
     }
 
     addItem(taskContent) {
-        this.toDos.push({name: taskContent, done: false, date: new Date()});
+        this.toDos.push({task: taskContent, done: false, date: new Date()});
     }
     deleteItem() {
 

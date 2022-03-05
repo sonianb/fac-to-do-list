@@ -1,17 +1,13 @@
-//------------------------Testing addItems()--------------------------------------
+//------------------------Testing addItem method--------------------------------------
 
 test("addItem() should add a new object to the toDolist array", () => {
-    const result = addItem("I want to buy tomatoes");
-    equal(result.name, "I want to buy tomatoes")
-    equal(result.done, false)
-    equal(toDoList.length, 3)
+    const test1 = new ToDoList();
+    equal(test1.toDos.length, 2) //check size before adding an item
+    test1.addItem("I want to buy tomatoes"); //add a new element
+    equal(test1.toDos.length, 3) //make sure array has the newly element 
+    equal(test1.toDos[2].task, "I want to buy tomatoes")
+    equal(test1.toDos[2].done, false);
 })
 
-// test("addItems() should read user's input value", () => {
 
-// })
-
-test("addItems() should modify the length of the toDolist array", () => {
-
-})
  
