@@ -1,6 +1,6 @@
 //------------------------Testing addItem method--------------------------------------
 
-test("addItem() should add a new object to the toDolist array", () => {
+test("addItem() should add a new object to the toDos array", () => {
     const test1 = new ToDoList();
     equal(test1.toDos.length, 2) //check size before adding an item
     test1.addItem("I want to buy tomatoes"); //add a new element
