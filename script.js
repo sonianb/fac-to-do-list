@@ -19,9 +19,10 @@ const toDoList = [
 
 // push new items to the toDoList
 
-function addItems() {
-    let newObj = {name: taskInput.value, done: false, date: new Date()} //can't get value from submit btn 
+function addItem(taskContent) {
+    let newObj = {name: taskContent, done: false, date: new Date()} 
     toDoList.push(newObj);
+    return newObj;
 }
 
 
