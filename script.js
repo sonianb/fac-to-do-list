@@ -1,5 +1,8 @@
 'use strict';
 
+const taskInput = document.getElementById('task');
+const submitBtn = document.getElementById('submit-btn')
+
 // Hard-coded example data structure:
 const toDoList = [
     {
@@ -8,16 +11,14 @@ const toDoList = [
         date: new Date()
     },
     {
-        task: "walk the dog",
+        task: "water the plants",
         done: false,
         date: new Date()
     }
 ]
 
+// push new items to the toDoList
 
-// Functions that we need:
-
-// Sonia: push new items to the toDoList 
 
 // Joe: update display/DOM
 
