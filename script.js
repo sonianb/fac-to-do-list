@@ -44,7 +44,7 @@ class ToDoList {
     addItem(taskContent) {
         this.toDos.push({task: taskContent, done: false, date: new Date()});
     }
-    deleteItem() {
+    deleteItem(index) {
 
     }
     getDoneItems() {
@@ -52,6 +52,9 @@ class ToDoList {
     }
     getAllItems() {
 
+    }
+    markItemDone(index) {
+        
     }
 }
 
