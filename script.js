@@ -4,18 +4,18 @@ const taskInput = document.getElementById('task');
 const submitBtn = document.getElementById('submit-btn')
 
 // Hard-coded example data structure:
-const toDoList = [
-    {
-        task: "walk the dog",
-        done: false,
-        date: new Date()
-    },
-    {
-        task: "water the plants",
-        done: false,
-        date: new Date()
-    }
-]
+// const toDoList = [
+//     {
+//         task: "walk the dog",
+//         done: false,
+//         date: new Date()
+//     },
+//     {
+//         task: "water the plants",
+//         done: false,
+//         date: new Date()
+//     }
+// ]
 
 // push new items to the toDoList
 
@@ -25,6 +25,37 @@ function addItem(taskContent) {
     return newObj;
 }
 
+class ToDoList {
+    constructor() {
+        this.toDos = [
+            {
+                task: "walk the dog",
+                done: false,
+                date: new Date()
+            },
+            {
+                task: "water the plants",
+                done: false,
+                date: new Date()
+            }
+        ]
+    }
+
+    addItem(taskContent) {
+        this.toDos.push({name: taskContent, done: false, date: new Date()});
+    }
+    deleteItem() {
+
+    }
+    getDoneItems() {
+
+    }
+    getAllItems() {
+
+    }
+}
+
+const toDoList = new ToDoList();
 
 // Joe: update display/DOM
 
