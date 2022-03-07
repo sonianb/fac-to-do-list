@@ -30,10 +30,10 @@ class ToDoList {
  
     }
     getAllItems() {
-        this.toDos
+       return this.toDos;
     }
     markItemDone(index) {
-        
+
     }
 }
 

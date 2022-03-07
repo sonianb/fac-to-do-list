@@ -26,7 +26,6 @@ test("getAllItems() gets all the items in the toDos array", () => {
     test.addItem("to do 1")
     test.addItem("to do 2")
     test.addItem("to do 3")
-    const allItems = getAllItems()
+    const allItems = test.getAllItems()
     equal(allItems.length, 3) //check if 3 elements have been added
-    //first need to implement and test mark done method
 })
