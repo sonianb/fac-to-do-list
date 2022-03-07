@@ -7,16 +7,16 @@ const submitBtn = document.getElementById('submit-btn')
 class ToDoList {
     constructor() {
         this.toDos = [
-            {
-                task: "walk the dog",
-                done: false,
-                date: new Date()
-            },
-            {
-                task: "water the plants",
-                done: false,
-                date: new Date()
-            }
+            // {
+            //     task: "walk the dog",
+            //     done: false,
+            //     date: new Date()
+            // },
+            // {
+            //     task: "water the plants",
+            //     done: false,
+            //     date: new Date()
+            // }
         ]
     }
 
