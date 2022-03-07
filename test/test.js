@@ -19,3 +19,28 @@ test("addItem() should add a new object to the toDos array", () => {
     test1.deleteItem(0) //delete the element
     equal(test1.toDos.length, 0)
 })
+
+
+//------------------------Testing updateItem method-------------------------------------
+
+test("updateItem(index, 'toggleItemDone') should toggle the boolean value of the 'done' key for the selected element in the toDos array", () => {
+    // Set up the test list:
+    const testList = new ToDoList();
+    testList.addItem("Paint the fridge");
+    testList.addItem("Walk the onions");
+    // Toggle done for item 0:
+    testList.updateItem(0, 'toggleItemDone');
+    // Test that item 0 was toggled from false (default) to true:
+    const actual0 = testList.toDos[0].done;
+    const expected0 = true;
+    equal(actual0, expected0);
+    // Test that item 1 remained false:
+    const actual1 = testList.toDos[1].done;
+    const expected1 = false;
+    equal(actual1, expected1);
+    // Test that item 0 can be toggled back to false:
+    testList.updateItem(0, 'toggleItemDone');
+    const actual2 = testList.toDos[0].done;
+    const expected2 = false;
+    equal(actual2, expected2);
+});

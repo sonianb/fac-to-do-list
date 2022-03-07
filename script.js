@@ -23,6 +23,13 @@ class ToDoList {
     addItem(taskContent) {
         this.toDos.push({task: taskContent, done: false, date: new Date()});
     }
+    updateItem(index, action) {
+        // updateItem can call other methods, depending on the action string provided
+        switch (action) {
+            case 'toggleItemDone':
+                this.toggleItemDone(index);
+        }
+    }
     deleteItem(index) {
        this.toDos.splice(index, 1); 
     }
@@ -32,8 +39,8 @@ class ToDoList {
     getAllItems() {
 
     }
-    markItemDone(index) {
-        
+    toggleItemDone(index) {
+        this.toDos[index]["done"] = !this.toDos[index]["done"];        
     }
 }
 
