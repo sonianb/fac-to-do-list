@@ -27,13 +27,13 @@ class ToDoList {
        this.toDos.splice(index, 1); 
     }
     getDoneItems() {
- 
+        
     }
     getAllItems() {
        return this.toDos;
     }
     markItemDone(index) {
-
+        this.toDos[index].done = true;
     }
 }
 
@@ -42,8 +42,6 @@ const toDoList = new ToDoList();
 // Joe: update display/DOM
 
 // Joe: update item in toDoList (to set it as "done")
-
-// Sonia: remove/delete item from toDoList
 
 // (Stretch goal: hide completed items)
 
