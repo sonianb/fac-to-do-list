@@ -30,7 +30,7 @@ test("getAllItems() gets all the items from the toDos array", () => {
     equal(allItems.length, 3) //check if 3 elements have been added
 })
 
-//------------------------Testing getAllItems method-------------------------------------
+//------------------------Testing markItemDone method-------------------------------------
 test("markItemDone() changes the value of the done item to false", () => {
     const test = new ToDoList();
     test.addItem("I want to play"); //add one element
@@ -42,9 +42,12 @@ test("markItemDone() changes the value of the done item to false", () => {
 //------------------------Testing getDoneItems() method-----------------------------------
 test("getDoneItems() gets all done items from toDos array", () => {
     const test = new ToDoList();
-    test.addItem("buy apples"); //add element
-    test.markItemDone(0); //mark element done
+    test.addItem("buy apples"); //add 2 elements
+    test.addItem("peel the apple");
+    test.markItemDone(0); //mark first element done
     equal(test.toDos[0].done, true); //check if element has been marked done/true
-    const allMarkedDoneElements = test.getDoneItems();
-    // equal(allMarkedDoneElements)
+    equal(test.toDos[1].done, false); //check the other element is still false
+    const allMarkedDoneItems = test.getDoneItems(); //get only the done element
+    equal(allMarkedDoneItems.length, 1) //check if getDoneItems returns one element
+    equal(allMarkedDoneItems[0].done, true) //check if the element returned is true 
 })

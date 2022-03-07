@@ -27,7 +27,7 @@ class ToDoList {
        this.toDos.splice(index, 1); 
     }
     getDoneItems() {
-        
+        return this.toDos.filter(elem => elem.done === true)
     }
     getAllItems() {
        return this.toDos;
