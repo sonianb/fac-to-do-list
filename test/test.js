@@ -19,3 +19,14 @@ test("addItem() should add a new object to the toDos array", () => {
     test1.deleteItem(0) //delete the element
     equal(test1.toDos.length, 0)
 })
+
+//------------------------Testing getAllItems method-------------------------------------
+test("getAllItems() gets all the items in the toDos array", () => {
+    const test = new ToDoList();
+    test.addItem("to do 1")
+    test.addItem("to do 2")
+    test.addItem("to do 3")
+    const allItems = getAllItems()
+    equal(allItems.length, 3) //check if 3 elements have been added
+    //first need to implement and test mark done method
+})
