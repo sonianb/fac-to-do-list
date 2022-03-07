@@ -17,4 +17,5 @@ test("addItem() should add a new object to the toDos array", () => {
     equal(test1.toDos.length, 2)
     test1.deleteItem("water the plants")
     equal(test1.toDos.length, 1)
+    equal(test1.toDos[0].task, "walk the dog")
 })
