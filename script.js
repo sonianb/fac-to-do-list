@@ -1,23 +1,43 @@
 'use strict';
 
-// Hard-coded example data structure:
-const toDoList = [
-    {
-        task: "walk the dog",
-        done: false,
-        date: new Date()
-    },
-    {
-        task: "walk the dog",
-        done: false,
-        date: new Date()
+const taskInput = document.getElementById('task');
+const submitBtn = document.getElementById('submit-btn')
+
+//data structure
+class ToDoList {
+    constructor() {
+        this.toDos = [
+            {
+                task: "walk the dog",
+                done: false,
+                date: new Date()
+            },
+            {
+                task: "water the plants",
+                done: false,
+                date: new Date()
+            }
+        ]
     }
-]
 
+    addItem(taskContent) {
+        this.toDos.push({task: taskContent, done: false, date: new Date()});
+    }
+    deleteItem(index) {
 
-// Functions that we need:
+    }
+    getDoneItems() {
 
-// Sonia: push new items to the toDoList 
+    }
+    getAllItems() {
+
+    }
+    markItemDone(index) {
+        
+    }
+}
+
+const toDoList = new ToDoList();
 
 // Joe: update display/DOM
 
