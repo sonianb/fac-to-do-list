@@ -24,6 +24,7 @@ class ToDoList {
         this.toDos.push({task: taskContent, done: false, date: new Date()});
     }
     deleteItem(index) {
+       const deletedItems = this.toDos.splice(index, 1)
 
     }
     getDoneItems() {
