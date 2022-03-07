@@ -23,6 +23,9 @@ class ToDoList {
     addItem(taskContent) {
         this.toDos.push({task: taskContent, done: false, date: new Date()});
     }
+    updateItem(index) {
+        this.toDos[index]["done"] = !this.toDos[index]["done"];
+    }
     deleteItem(index) {
        this.toDos.splice(index, 1); 
     }
