@@ -10,4 +10,11 @@ test("addItem() should add a new object to the toDos array", () => {
 })
 
 
- 
+ //------------------------Testing deleteItem method-------------------------------------
+
+ test("deleteItem() should remove an object from the toDos array", () => {
+    const test1 = new ToDoList();
+    equal(test1.toDos.length, 2)
+    test1.deleteItem("water the plants")
+    equal(test1.toDos.length, 1)
+})
