@@ -23,13 +23,6 @@ class ToDoList {
     addItem(taskContent) {
         this.toDos.push({task: taskContent, done: false, date: new Date()});
     }
-    updateItem(index, action) {
-        // updateItem can call other methods, depending on the action string provided
-        switch (action) {
-            case 'toggleItemDone':
-                this.toggleItemDone(index);
-        }
-    }
     deleteItem(index) {
        this.toDos.splice(index, 1); 
     }
