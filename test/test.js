@@ -20,6 +20,28 @@ test("addItem() should add a new object to the toDos array", () => {
     equal(test1.toDos.length, 0)
 })
 
+//------------------------Testing getAllItems method-------------------------------------
+test("getAllItems() gets all the items from the toDos array", () => {
+    const test = new ToDoList();
+    test.addItem("to do 1")
+    test.addItem("to do 2")
+    test.addItem("to do 3")
+    const allItems = test.getAllItems()
+    equal(allItems.length, 3) //check if 3 elements have been added
+})
+
+//------------------------Testing getDoneItems() method-----------------------------------
+test("getDoneItems() gets all done items from toDos array", () => {
+    const test = new ToDoList();
+    test.addItem("buy apples"); //add 2 elements
+    test.addItem("peel the apple");
+    test.toggleItemDone(0); //toggle first item done
+    equal(test.toDos[0].done, true); //check if element is done/true
+    equal(test.toDos[1].done, false); //check the other element is still false
+    const allMarkedDoneItems = test.getDoneItems(); //get only the done element
+    equal(allMarkedDoneItems.length, 1) //check if getDoneItems returns one element
+    equal(allMarkedDoneItems[0].done, true) //check if the element returned is true 
+})
 
 //------------------------Testing updateItem method-------------------------------------
 

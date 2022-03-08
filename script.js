@@ -27,10 +27,10 @@ class ToDoList {
        this.toDos.splice(index, 1); 
     }
     getDoneItems() {
-
+        return this.toDos.filter(elem => elem.done === true)
     }
     getAllItems() {
-
+       return this.toDos;
     }
     toggleItemDone(index) {
         this.toDos[index]["done"] = !this.toDos[index]["done"];        
@@ -42,8 +42,6 @@ const toDoList = new ToDoList();
 // Joe: update display/DOM
 
 // Joe: update item in toDoList (to set it as "done")
-
-// Sonia: remove/delete item from toDoList
 
 // (Stretch goal: hide completed items)
 
