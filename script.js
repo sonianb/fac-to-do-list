@@ -6,34 +6,28 @@ const submitBtn = document.getElementById('submit-btn')
 //data structure
 class ToDoList {
     constructor() {
-        this.toDos = [
-            // {
-            //     task: "walk the dog",
-            //     done: false,
-            //     date: new Date()
-            // },
-            // {
-            //     task: "water the plants",
-            //     done: false,
-            //     date: new Date()
-            // }
-        ]
+        const tempTodo = localStorage.getItem('to-do-list')
+        if (tempTodo) { //if item exists, do JSONparse to transform to obj to initialise in toDos
+            this.toDos = JSON.parse(tempTodo);
+        } else {
+            this.toDos = [];
+        }
     }
 
     addItem(taskContent) {
         this.toDos.push({task: taskContent, done: false, date: new Date()});
     }
     deleteItem(index) {
-       this.toDos.splice(index, 1); 
+        this.toDos.splice(index, 1);
     }
     getDoneItems() {
         return this.toDos.filter(elem => elem.done === true)
     }
     getAllItems() {
-       return this.toDos;
+        return this.toDos;
     }
     toggleItemDone(index) {
-        this.toDos[index]["done"] = !this.toDos[index]["done"];        
+        this.toDos[index]["done"] = !this.toDos[index]["done"];
     }
     saveToLocalStorage() {
         window.localStorage.setItem("to-do-list", JSON.stringify(this.toDos))
