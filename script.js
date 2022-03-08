@@ -35,6 +35,9 @@ class ToDoList {
     toggleItemDone(index) {
         this.toDos[index]["done"] = !this.toDos[index]["done"];        
     }
+    saveToLocalStorage() {
+        window.localStorage.setItem("to-do-list", JSON.stringify(this.toDos))
+    }
 }
 
 const toDoList = new ToDoList();
