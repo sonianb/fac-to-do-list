@@ -97,18 +97,18 @@ function updateDisplay(list) {
 
         outputElement.append(taskContainerEl);
 
-        /*  Get the index in the array of the current item:
-            (indexOf *seems* to be a safe/reliable way to do this?
-            i.e. it won't confuse "superficially identical" elements.)
-        */
-        const currentItemIndex = items.indexOf(item);
+        // Note: this can't go here, it'll cause problems! (See notes below :)
+        // const currentItemIndex = items.indexOf(item);
 
-        /*  If you want to have each eventListener function complete by calling
-            some function to "update the DOM", you'll probably need to have
+        /*  If you wanted to have each eventListener function finish its job by calling
+            some other function to "update the DOM", you'd probably need to have
             an "updateTask" function (which takes an item as a parameter),
-            which would then be called by updateDisplay for each item in a given list.
-            (This means that the eventListener functions can ask to just "redraw"
-            that one task, then the item is changed, rather than redraw the entire list.)
+            rather than just call updateDisplay(list).
+
+            (To initially populate the DOM, or update every task at once,
+            updateDisplay would call updateTask for each item in a given list.)
+            This would mean that the eventListener functions could ask to just "redraw"
+            that one task, when the item is changed, rather than redraw the entire list.
 
             For now: just manipulate the DOM immediately and directly!
         */
@@ -126,7 +126,21 @@ function updateDisplay(list) {
 
                 list.toggleItemDone(item);
 
-                But for now, just use the established index method.
+                But for now, just use the established index method:
+
+                First, get the index in the array of the current item:
+            */
+            const currentItemIndex = items.indexOf(item);
+            /*
+                (indexOf *seems* to be a safe/reliable way to do this?
+                i.e. it won't confuse "seemingly-identical" elements.)
+
+                Note: I don't think you can set this const outside of this function
+                (i.e. in the parent scope). Because if you delete an item's element
+                from the array, its index will change. But its index is being set only once,
+                when the DOM is first populated, so that will quickly get out of sync.
+
+                Then call the appropriate method for this list, passing it the correct index:
             */
             list.toggleItemDone(currentItemIndex);
             // Add the "done" class to this task's text container:
@@ -137,14 +151,12 @@ function updateDisplay(list) {
             } else {
                 taskTextContainerEl.innerHTML = taskTextContainerEl.innerText;
             }
-            // Is calling the whole parent function from here a good idea?!
-            //updateDisplay(list);
         });
 
         deleteButtonEl.addEventListener("click", () => {
+            const currentItemIndex = items.indexOf(item);
             taskContainerEl.remove();
             list.deleteItem(currentItemIndex);
-            //updateDisplay(list);
         });
 
     }
