@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem); ;
+}
+
 body {
     background-color: var(--primary-color);
     display: flex;
@@ -23,6 +27,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 2rem;
+    height: max-content;
 }
 
 .icons {
