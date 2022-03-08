@@ -1,8 +1,5 @@
 'use strict';
 
-const taskInput = document.getElementById('task');
-const submitBtn = document.getElementById('submit-btn')
-
 //data structure
 class ToDoList {
     constructor() {
@@ -37,36 +34,11 @@ class ToDoList {
     }
 }
 
+
 // Currently we set up one default list, but it would be relatively straightforward
 // to add functionality to allow the user to create multiple lists.
 const toDoList = new ToDoList();
 
-// Joe: update display/DOM
-
-// Joe: update item in toDoList (to set it as "done")
-
-// (Stretch goal: hide completed items)
-
-/*
-
-    Add, update and delete functions *only* change the array.
-    (They only change the data that we're storing.)
-
-    The "update display" function *only* modifies the DOM.
-    (It always reads the most up-to-date data that we're storing, and updates the DOM using that.)
-
-    When they've finished changing the array, the add, update, and delete functions
-    will always call the update display function.
-
-    test("addTask() should add a new object to the toDoList array", () => {
-        ...
-    });
-
-    function addTask(task) {
-        ...
-    }
-
-*/
 
 function updateDisplay(list) {
 
@@ -110,70 +82,28 @@ function updateDisplay(list) {
 
         outputElement.append(taskContainerEl);
 
-        // Note: this can't go here, it'll cause problems! (See notes below :)
-        // const currentItemIndex = items.indexOf(item);
-
-        // Contents of these arrow functions could be moved to separate (named) functions:
-
         toggleDoneInputEl.addEventListener("input", () => {
-            /*  We can address the item directly if you change the class method to:
+            /*
+                indexOf *seems* to be a safe/reliable way to do this?
+                (i.e. it won't confuse "seemingly-identical" elements.)
 
-                toggleItemDone(item) {
-                    item["done"] = !item["done"];
-                }
+                Could we set this const outside of this function (i.e. in the parent scope)?
+                It might cause problems (because if we delete an item's element from the array,
+                its index will change, so that will quickly get out of sync).
 
-                And call it like this here:
-
-                list.toggleItemDone(item);
-
-                But it's not immediately clear how to do this for the deleteItem method
-                without changing lots of things, so for now, just use the established
-                method with the index parameter:
-
-                First, get the index in the array of the current item:
+                But given we updateDisplay on every event anyway, might it work?
             */
             const currentItemIndex = items.indexOf(item);
-            /*
-                (indexOf *seems* to be a safe/reliable way to do this?
-                i.e. it won't confuse "seemingly-identical" elements.)
-
-                Note: I don't think you can set this const outside of this function
-                (i.e. in the parent scope). Because if we delete an item's element
-                from the array, its index will change. But its index is being set only once,
-                when the DOM is first populated, so that will quickly get out of sync.
-
-                Then call the appropriate method for this list, passing it the correct index:
-            */
             list.toggleItemDone(currentItemIndex);
 
-            // We probably shouldn't do this here, so this can be safely removed:
-            // Conditionally wrap the text in a strikethrough tag:
-            /* if (item['done'] === true) {
-                taskTextContainerEl.innerHTML = `<s>${taskTextContainerEl.innerHTML}</s>`;
-            } else {
-                taskTextContainerEl.innerHTML = taskTextContainerEl.innerText;
-            } */
-
-            /*  If we want to have relevant eventListener functions finish their job by calling
-                some other function to "update the DOM", we could use an "updateTask" function
-                (which takes an item as a parameter), rather than just call updateDisplay(list)
-                (as we do below).
-
-                (To update every task at once, updateDisplay would call updateTask for each
-                item in a given list.)
-
-                This would mean that the eventListener functions could ask to just "redraw"
-                that one task, when the item is changed, rather than redraw the entire list.
-
-                This probably only matters if there are lots of items on the list, and the
-                user agent is low on resources?
+            /*  This "redraws" everything (for this list), every time an item is toggled as done.
+                Not necessarily the best approach, but it probably only matters if there are
+                *lots* of items on the list, and the user agent is low on resources?
             */
             updateDisplay(list);
         });
 
         deleteButtonEl.addEventListener("click", () => {
-            // If we really want to avoid repeating this, we could write a function
-            // that returns the index when requested. That'll be more LOC though :)
             const currentItemIndex = items.indexOf(item);
             list.deleteItem(currentItemIndex);
             updateDisplay(list);
@@ -199,22 +129,10 @@ function handleFormInput(form) {
 
 }
 
+
 const myForm = document.querySelector('form');
 
 myForm.addEventListener('submit', (event) => {
     event.preventDefault();
     handleFormInput(event.target);
 });
-
-
-
-// Temporary test data:
-const testList = new ToDoList();
-
-testList.addItem("Hello world");
-testList.addItem("Clear out the garden shed");
-testList.addItem("Just a test item");
-testList.addItem("Hello world"); // intentional duplicate
-
-//updateDisplay(testList);
-// End of temporary test data
