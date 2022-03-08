@@ -37,6 +37,8 @@ class ToDoList {
     }
 }
 
+// Currently we set up one default list, but it would be relatively straightforward
+// to add functionality to allow the user to create multiple lists.
 const toDoList = new ToDoList();
 
 // Joe: update display/DOM
@@ -80,12 +82,23 @@ function updateDisplay(list) {
         toggleDoneInputEl.setAttribute('type', 'checkbox');
 
         const taskTextContainerEl = document.createElement('span'); // change to div?
-        // Conditionally wrap the text in a strikethrough tag:
-        //if (item['done'] === true) {
-        //    taskTextContainerEl.innerHTML = `<s>${item['task']}</s>`;
-        //} else {
+
+        // If the item's done flag is set to true:
+        if (item['done'] === true) {
+            // Wrap the text in a strikethrough tag:
+            taskTextContainerEl.innerHTML = `<s>${item['task']}</s>`;
+            // Check the checkbox:
+            toggleDoneInputEl.setAttribute('checked', 'on');
+            // Add the "done" class to this task's text container:
+            taskTextContainerEl.classList.add('done');
+        } else {
+            // If not, then don't wrap the text in a strikethrough tag:
             taskTextContainerEl.innerHTML = item['task'];
-        //}
+            /*  (There's no need to remove the "done" class or uncheck the checkbox,
+                as the class isn't assigned by default, and the checkbox is unchecked by default.)
+            */
+
+        }
 
         const deleteButtonEl = document.createElement('input');
         deleteButtonEl.setAttribute('type', 'button');
@@ -100,23 +113,10 @@ function updateDisplay(list) {
         // Note: this can't go here, it'll cause problems! (See notes below :)
         // const currentItemIndex = items.indexOf(item);
 
-        /*  If you wanted to have each eventListener function finish its job by calling
-            some other function to "update the DOM", you'd probably need to have
-            an "updateTask" function (which takes an item as a parameter),
-            rather than just call updateDisplay(list).
-
-            (To initially populate the DOM, or update every task at once,
-            updateDisplay would call updateTask for each item in a given list.)
-            This would mean that the eventListener functions could ask to just "redraw"
-            that one task, when the item is changed, rather than redraw the entire list.
-
-            For now: just manipulate the DOM immediately and directly!
-        */
-
         // Contents of these arrow functions could be moved to separate (named) functions:
 
         toggleDoneInputEl.addEventListener("input", () => {
-            /*  You can address the item directly if you change the class method to:
+            /*  We can address the item directly if you change the class method to:
 
                 toggleItemDone(item) {
                     item["done"] = !item["done"];
@@ -126,7 +126,9 @@ function updateDisplay(list) {
 
                 list.toggleItemDone(item);
 
-                But for now, just use the established index method:
+                But it's not immediately clear how to do this for the deleteItem method
+                without changing lots of things, so for now, just use the established
+                method with the index parameter:
 
                 First, get the index in the array of the current item:
             */
@@ -136,32 +138,75 @@ function updateDisplay(list) {
                 i.e. it won't confuse "seemingly-identical" elements.)
 
                 Note: I don't think you can set this const outside of this function
-                (i.e. in the parent scope). Because if you delete an item's element
+                (i.e. in the parent scope). Because if we delete an item's element
                 from the array, its index will change. But its index is being set only once,
                 when the DOM is first populated, so that will quickly get out of sync.
 
                 Then call the appropriate method for this list, passing it the correct index:
             */
             list.toggleItemDone(currentItemIndex);
-            // Add the "done" class to this task's text container:
-            taskTextContainerEl.classList.toggle('done');
+
+            // We probably shouldn't do this here, so this can be safely removed:
             // Conditionally wrap the text in a strikethrough tag:
-            if (item['done'] === true) {
+            /* if (item['done'] === true) {
                 taskTextContainerEl.innerHTML = `<s>${taskTextContainerEl.innerHTML}</s>`;
             } else {
                 taskTextContainerEl.innerHTML = taskTextContainerEl.innerText;
-            }
+            } */
+
+            /*  If we want to have relevant eventListener functions finish their job by calling
+                some other function to "update the DOM", we could use an "updateTask" function
+                (which takes an item as a parameter), rather than just call updateDisplay(list)
+                (as we do below).
+
+                (To update every task at once, updateDisplay would call updateTask for each
+                item in a given list.)
+
+                This would mean that the eventListener functions could ask to just "redraw"
+                that one task, when the item is changed, rather than redraw the entire list.
+
+                This probably only matters if there are lots of items on the list, and the
+                user agent is low on resources?
+            */
+            updateDisplay(list);
         });
 
         deleteButtonEl.addEventListener("click", () => {
+            // If we really want to avoid repeating this, we could write a function
+            // that returns the index when requested. That'll be more LOC though :)
             const currentItemIndex = items.indexOf(item);
-            taskContainerEl.remove();
             list.deleteItem(currentItemIndex);
+            updateDisplay(list);
         });
 
     }
 
 }
+
+
+function handleFormInput(form) {
+
+    const myFormData = new FormData(form);
+
+    const myData = Object.fromEntries(myFormData);
+
+    toDoList.addItem(myData['task']);
+
+    // Empty the input
+    form.reset();
+
+    updateDisplay(toDoList);
+
+}
+
+const myForm = document.querySelector('form');
+
+myForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    handleFormInput(event.target);
+});
+
+
 
 // Temporary test data:
 const testList = new ToDoList();
@@ -171,4 +216,5 @@ testList.addItem("Clear out the garden shed");
 testList.addItem("Just a test item");
 testList.addItem("Hello world"); // intentional duplicate
 
-updateDisplay(testList);
+//updateDisplay(testList);
+// End of temporary test data
