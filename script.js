@@ -67,5 +67,25 @@ const toDoList = new ToDoList();
 */
 
 function updateDisplay(list) {
-    
+    const outputElement = document.querySelector('section');
+    const items = list.getAllItems();
+    let html = '';
+    for (const item of items) {
+        html += `
+<div class="task">
+    <input type="checkbox">
+    ${item.task}
+    <input type="button" value="X">
+</div>
+`;
+    }
+    outputElement.innerHTML = html;
 }
+
+const testList = new ToDoList();
+
+testList.addItem("Hello world");
+testList.addItem("Clear out the garden shed");
+testList.addItem("Just a test item");
+
+updateDisplay(testList);
