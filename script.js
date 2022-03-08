@@ -69,8 +69,30 @@ const toDoList = new ToDoList();
 function updateDisplay(list) {
     const outputElement = document.querySelector('section');
     const items = list.getAllItems();
-    let html = '';
+    //let html = '';
     for (const item of items) {
+
+        const newTaskDiv = document.createElement('div');
+
+        const newDoneCheckbox = document.createElement('input');
+        newDoneCheckbox.setAttribute('type', 'checkbox');
+
+        const newTaskTextDiv = document.createElement('span'); // change to div...
+        newTaskTextDiv.innerHTML = item.task;
+
+        const newDeleteButton = document.createElement('input');
+        newDeleteButton.setAttribute('type', 'button');
+        newDeleteButton.setAttribute('value', 'X');
+
+        newTaskDiv.append(newDoneCheckbox);
+        newTaskDiv.append(newTaskTextDiv);
+        newTaskDiv.append(newDeleteButton);
+
+        outputElement.append(newTaskDiv);
+
+        // Now you can add event listeners for the checkbox and button at the same time
+
+/*
         html += `
 <div class="task">
     <input type="checkbox">
@@ -78,8 +100,9 @@ function updateDisplay(list) {
     <input type="button" value="X">
 </div>
 `;
+*/
     }
-    outputElement.innerHTML = html;
+    // outputElement.innerHTML = html;
 }
 
 const testList = new ToDoList();
