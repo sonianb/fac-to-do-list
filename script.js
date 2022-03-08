@@ -68,3 +68,6 @@ const toDoList = new ToDoList();
 
 */
 
+function updateDisplay(list) {
+    
+}
