@@ -1,0 +1,10 @@
+:root {
+    font-family: 'Quattrocento Sans', sans-serif;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: red; */
+}
