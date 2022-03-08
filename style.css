@@ -1,0 +1,47 @@
+:root {
+    font-family: 'Quattrocento Sans', sans-serif;
+    --primary-color: #d4f4cd;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem); ;
+}
+
+body {
+    background-color: var(--primary-color);
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.form-container {
+    background-color: #f3f3f3;
+    max-width: 700px;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    height: max-content;
+}
+
+.icons {
+    padding: 0.7rem;
+}
+
+#submit-btn {
+    font-family: inherit;
+    padding: 0.5rem 0.8rem;
+}
+
+input[type=text] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 5px;
+  }
