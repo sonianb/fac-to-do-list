@@ -43,7 +43,8 @@ test("getDoneItems() gets all done items from toDos array", () => {
     equal(allMarkedDoneItems[0].done, true) //check if the element returned is true 
 })
 
-//------------------------Testing updateItem method-------------------------------------
+
+//------------------------Testing toggleItemDone method-------------------------------------
 
 test("toggleItemDone(index) should toggle the boolean value of the 'done' key for the selected element in the toDos array", () => {
     // Set up the test list:
