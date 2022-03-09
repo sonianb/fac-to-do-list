@@ -71,19 +71,19 @@ test("toggleItemDone(index) should toggle the boolean value of the 'done' key fo
 
 //------------------------Testing updateDisplay function-------------------------------------
 
+/*  All the tests below work by comparing an actual and expected string of HTML.
+    A problem with this approach is that if we change what markup is produced,
+    (i.e. by changing the updateDisplay function), we have to manually edit our test.
+    Ideally, the test would be able to get an expected result another way?
+*/
+
 test("updateDisplay should add a list item to the document", () => {
-    // Set up test list (we shouldn't use localStorage):
     const testList = new ToDoList();
     testList.addItem("Test item 1");
     updateDisplay(testList);
-    // One approach is to compare the HTML, as a string:
     const actual0 = document.querySelector('section').innerHTML;
     const expected0 = '<div><input type="checkbox"><span>Test item 1</span><input type="button" value="X"></div>';
     equal(actual0, expected0);
-    /*  A problem with this approach is that if we change what markup is produced,
-        (i.e. by changing the updateDisplay function), we have to manually edit our test.
-        Ideally, the test would be able to get an expected result another way?
-    */
 });
 
 test("updateDisplay should change the document to show that a list item is marked as done", () => {
@@ -111,8 +111,11 @@ test("updateDisplay should add a checkbox to the document with an 'input' event 
     const testList = new ToDoList();
     testList.addItem("Test item 4");
     updateDisplay(testList);
+    // Get the checkbox input element (there's only one):
     const testEl = document.querySelector('input[type=checkbox]');
+    // Make a new 'input' event:
     const inputEvent = new InputEvent('input');
+    // Trigger (dispatch) this 'input' event on the checkbox:
     testEl.dispatchEvent(inputEvent);
     const actual0 = document.querySelector('section').innerHTML;
     const expected0 = '<div><input type="checkbox" checked="on"><span class="done"><s>Test item 4</s></span><input type="button" value="X"></div>';
@@ -124,6 +127,7 @@ test("updateDisplay should add a button to the document with a 'click' event lis
     testList.addItem("Test item 5a");
     testList.addItem("Test item 5b");
     updateDisplay(testList);
+    // There will be two delete buttons, so just get the first:
     const testEl = document.querySelectorAll('input[type=button]')[0];
     const inputEvent = new InputEvent('click');
     testEl.dispatchEvent(inputEvent);
