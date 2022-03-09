@@ -1,8 +1,5 @@
 'use strict';
 
-const taskInput = document.getElementById('task');
-const submitBtn = document.getElementById('submit-btn')
-
 //data structure
 class ToDoList {
 
@@ -46,7 +43,7 @@ class ToDoList {
         return this.toDos;
     }
     toggleItemDone(index) {
-        this.toDos[index]["done"] = !this.toDos[index]["done"];
+        this.toDos[index].done = !this.toDos[index].done;
         this.saveToLocalStorage();
     }
     saveToLocalStorage() {
@@ -58,32 +55,94 @@ class ToDoList {
     }
 }
 
+// Currently we set up one default list, but it would be relatively straightforward
+// to add functionality to allow the user to create multiple lists.
 const toDoList = new ToDoList('defaultList', true);
 
-// Joe: update display/DOM
 
-// Joe: update item in toDoList (to set it as "done")
+function updateDisplay(list) {
 
-// (Stretch goal: hide completed items)
+    const outputElement = document.querySelector('section');
+    const items = list.getAllItems();
+    outputElement.innerHTML = '';
 
-/*
+    items.forEach((item, index) => {
 
-    Add, update and delete functions *only* change the array.
-    (They only change the data that we're storing.)
+        const taskContainerEl = document.createElement('div');
 
-    The "update display" function *only* modifies the DOM.
-    (It always reads the most up-to-date data that we're storing, and updates the DOM using that.)
+        const toggleDoneInputEl = document.createElement('input');
+        toggleDoneInputEl.setAttribute('type', 'checkbox');
 
-    When they've finished changing the array, the add, update, and delete functions
-    will always call the update display function.
+        const taskTextContainerEl = document.createElement('span'); // change to div?
 
-    test("addTask() should add a new object to the toDoList array", () => {
-        ...
+        // If the item's done flag is set to true:
+        if (item.done === true) {
+            // Wrap the text in a strikethrough tag:
+            taskTextContainerEl.innerHTML = `<s>${item.task}</s>`;
+            // Check the checkbox:
+            toggleDoneInputEl.setAttribute('checked', 'on');
+            // Add the "done" class to this task's text container:
+            taskTextContainerEl.classList.add('done');
+        } else {
+            // If not, then don't wrap the text in a strikethrough tag:
+            taskTextContainerEl.innerHTML = item.task;
+            /*  (There's no need to remove the "done" class or uncheck the checkbox,
+                as the class isn't assigned by default, and the checkbox is unchecked by default.)
+            */
+        }
+
+        const deleteButtonEl = document.createElement('input');
+        deleteButtonEl.setAttribute('type', 'button');
+        deleteButtonEl.setAttribute('value', 'X');
+
+        taskContainerEl.append(toggleDoneInputEl);
+        taskContainerEl.append(taskTextContainerEl);
+        taskContainerEl.append(deleteButtonEl);
+
+        outputElement.append(taskContainerEl);
+
+        toggleDoneInputEl.addEventListener("input", () => {
+            list.toggleItemDone(index);
+            /*  This "redraws" everything (for this list), every time an item is toggled as done.
+                Not necessarily the best approach, but it probably only matters if there are
+                *lots* of items on the list, and the user agent is low on resources?
+            */
+            updateDisplay(list);
+        });
+
+        deleteButtonEl.addEventListener("click", () => {
+            list.deleteItem(index);
+            updateDisplay(list);
+        });
+
     });
 
-    function addTask(task) {
-        ...
-    }
+}
 
-*/
 
+function handleFormInput(form) {
+
+    const myFormData = new FormData(form);
+
+    const myData = Object.fromEntries(myFormData);
+
+    toDoList.addItem(myData.task);
+
+    // Empty the input
+    form.reset();
+
+    updateDisplay(toDoList);
+
+}
+
+
+const myForm = document.querySelector('form');
+
+myForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    handleFormInput(event.target);
+});
+
+
+// Call this on page load, so that a saved list is displayed if it exists
+updateDisplay(toDoList);
