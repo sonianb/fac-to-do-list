@@ -33,7 +33,7 @@ class ToDoList {
         return this.toDos;
     }
     toggleItemDone(index) {
-        this.toDos[index]["done"] = !this.toDos[index]["done"];
+        this.toDos[index].done = !this.toDos[index].done;
         this.saveToLocalStorage();
     }
     saveToLocalStorage() {
@@ -62,16 +62,16 @@ function updateDisplay(list) {
         const taskTextContainerEl = document.createElement('span'); // change to div?
 
         // If the item's done flag is set to true:
-        if (item['done'] === true) {
+        if (item.done === true) {
             // Wrap the text in a strikethrough tag:
-            taskTextContainerEl.innerHTML = `<s>${item['task']}</s>`;
+            taskTextContainerEl.innerHTML = `<s>${item.task}</s>`;
             // Check the checkbox:
             toggleDoneInputEl.setAttribute('checked', 'on');
             // Add the "done" class to this task's text container:
             taskTextContainerEl.classList.add('done');
         } else {
             // If not, then don't wrap the text in a strikethrough tag:
-            taskTextContainerEl.innerHTML = item['task'];
+            taskTextContainerEl.innerHTML = item.task;
             /*  (There's no need to remove the "done" class or uncheck the checkbox,
                 as the class isn't assigned by default, and the checkbox is unchecked by default.)
             */
@@ -126,7 +126,7 @@ function handleFormInput(form) {
 
     const myData = Object.fromEntries(myFormData);
 
-    toDoList.addItem(myData['task']);
+    toDoList.addItem(myData.task);
 
     // Empty the input
     form.reset();
