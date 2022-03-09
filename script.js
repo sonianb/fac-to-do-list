@@ -40,7 +40,11 @@ class ToDoList {
         this.saveToLocalStorage();
     }
     saveToLocalStorage() {
-        window.localStorage.setItem("to-do-list", JSON.stringify(this.toDos))
+        // Check if useLocalStorage is enabled for this instance, so we only save to
+        // local storage if the list requests it.
+        if (this.useLocalStorage) {
+            window.localStorage.setItem("to-do-list", JSON.stringify(this.toDos))
+        }
     }
 }
 
