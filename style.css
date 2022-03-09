@@ -98,8 +98,8 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked {
     color: white;
-    border-color: #87d87a;
-    background-color: #87d87a;
+    border-color: #a4deaf;
+    background-color: #a4deaf;
 }
 
 input[type="checkbox"]:checked::before {
