@@ -94,7 +94,8 @@ function updateDisplay(list) {
 
         const deleteButtonEl = document.createElement('input');
         deleteButtonEl.setAttribute('type', 'button');
-        deleteButtonEl.setAttribute('value', 'X');
+        deleteButtonEl.classList.add('deleteBtn')
+        deleteButtonEl.setAttribute('value', '—');
 
         taskContainerEl.append(toggleDoneInputEl);
         taskContainerEl.append(taskTextContainerEl);
