@@ -94,10 +94,6 @@ test("updateDisplay should change the document to show that a list item is marke
     const actual0 = document.querySelector('section').innerHTML;
     const expected0 = '<div><input type="checkbox" checked="on"><span class="done"><s>Test item 2</s></span><input type="button" value="X"></div>';
     equal(actual0, expected0);
-    /*  A problem with this approach is that if we change what markup is produced,
-        (i.e. by changing the updateDisplay function), we have to manually edit our test.
-        Ideally, the test would be able to get an expected result another way?
-    */
 });
 
 test("updateDisplay should change the document to show that a list item has been deleted", () => {
