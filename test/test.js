@@ -67,3 +67,13 @@ test("toggleItemDone(index) should toggle the boolean value of the 'done' key fo
     const expected2 = false;
     equal(actual2, expected2);
 });
+
+
+//------------------------Testing updateDisplay function-------------------------------------
+
+test("", () => {
+    // Set up test list (we shouldn't use localStorage):
+    const testList = new ToDoList();
+    testList.addItem("Test item");
+    //const actual0 = document.querySelector('section');
+});
