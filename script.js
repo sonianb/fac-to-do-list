@@ -69,6 +69,7 @@ function updateDisplay(list) {
     items.forEach((item, index) => {
 
         const taskContainerEl = document.createElement('div');
+        taskContainerEl.classList.add('list-items')
 
         const toggleDoneInputEl = document.createElement('input');
         toggleDoneInputEl.setAttribute('type', 'checkbox');
