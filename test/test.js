@@ -106,3 +106,15 @@ test("updateDisplay should change the document to show that a list item has been
     const expected0 = '<div><input type="checkbox"><span>Test item 3b</span><input type="button" value="X"></div>';
     equal(actual0, expected0);
 });
+
+test("updateDisplay should add a checkbox to the document with an 'input' event listener that toggles marking an item as done", () => {
+    const testList = new ToDoList();
+    testList.addItem("Test item 4");
+    updateDisplay(testList);
+    const testEl = document.querySelector('input[type=checkbox]');
+    const inputEvent = new InputEvent('input');
+    testEl.dispatchEvent(inputEvent);
+    const actual0 = document.querySelector('section').innerHTML;
+    const expected0 = '<div><input type="checkbox" checked="on"><span class="done"><s>Test item 4</s></span><input type="button" value="X"></div>';
+    equal(actual0, expected0);
+});
