@@ -66,7 +66,7 @@ function updateDisplay(list) {
     const items = list.getAllItems();
     outputElement.innerHTML = '';
 
-    for (const item of items) {
+    items.forEach((item, index) => {
 
         const taskContainerEl = document.createElement('div');
 
@@ -89,7 +89,6 @@ function updateDisplay(list) {
             /*  (There's no need to remove the "done" class or uncheck the checkbox,
                 as the class isn't assigned by default, and the checkbox is unchecked by default.)
             */
-
         }
 
         const deleteButtonEl = document.createElement('input');
@@ -103,19 +102,7 @@ function updateDisplay(list) {
         outputElement.append(taskContainerEl);
 
         toggleDoneInputEl.addEventListener("input", () => {
-            /*
-                indexOf *seems* to be a safe/reliable way to do this?
-                (i.e. it won't confuse "seemingly-identical" elements.)
-
-                Could we set this const outside of this function (i.e. in the parent scope)?
-                It might cause problems (because if we delete an item's element from the array,
-                its index will change, so that will quickly get out of sync).
-
-                But given we updateDisplay on every event anyway, might it work?
-            */
-            const currentItemIndex = items.indexOf(item);
-            list.toggleItemDone(currentItemIndex);
-
+            list.toggleItemDone(index);
             /*  This "redraws" everything (for this list), every time an item is toggled as done.
                 Not necessarily the best approach, but it probably only matters if there are
                 *lots* of items on the list, and the user agent is low on resources?
@@ -124,12 +111,11 @@ function updateDisplay(list) {
         });
 
         deleteButtonEl.addEventListener("click", () => {
-            const currentItemIndex = items.indexOf(item);
-            list.deleteItem(currentItemIndex);
+            list.deleteItem(index);
             updateDisplay(list);
         });
 
-    }
+    });
 
 }
 
