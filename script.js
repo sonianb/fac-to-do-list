@@ -9,11 +9,21 @@ class ToDoList {
      * @param {*} useLocalStorage boolean, determines whether local storage should be used
      */
 
-    constructor(useLocalStorage) {
-        const tempTodo = localStorage.getItem('to-do-list')
-        if (useLocalStorage && tempTodo) { //if item exists, do JSONparse to transform to obj to initialise in toDos
-            this.toDos = JSON.parse(tempTodo);
+    constructor(listName, useLocalStorage) {
+        this.useLocalStorage = useLocalStorage;
+        this.listName = listName;
+        // A listName must be provided to make use of local storage
+        if (listName) {
+            const tempTodo = localStorage.getItem(listName);
+            if (useLocalStorage && tempTodo) { //if item exists, do JSONparse to transform to obj to initialise in toDos
+                this.toDos = JSON.parse(tempTodo);
+            } else {
+                // If a listName is provided but there's no localStorage data, set up an empty
+                // array for this todo list:
+                this.toDos = [];
+            }
         } else {
+            // If no listName is provided, set up an empty array for this todo list:
             this.toDos = [];
         }
     }
@@ -33,17 +43,21 @@ class ToDoList {
         return this.toDos;
     }
     toggleItemDone(index) {
-        this.toDos[index]["done"] = !this.toDos[index]["done"];
+        this.toDos[index].done = !this.toDos[index].done;
         this.saveToLocalStorage();
     }
     saveToLocalStorage() {
-        window.localStorage.setItem("to-do-list", JSON.stringify(this.toDos))
+        // Check if useLocalStorage is enabled for this instance, so we only save to
+        // local storage if the list requests it.
+        if (this.useLocalStorage) {
+            window.localStorage.setItem(this.listName, JSON.stringify(this.toDos))
+        }
     }
 }
 
 // Currently we set up one default list, but it would be relatively straightforward
 // to add functionality to allow the user to create multiple lists.
-const toDoList = new ToDoList(true);
+const toDoList = new ToDoList('defaultList', true);
 
 
 function updateDisplay(list) {
@@ -52,7 +66,7 @@ function updateDisplay(list) {
     const items = list.getAllItems();
     outputElement.innerHTML = '';
 
-    for (const item of items) {
+    items.forEach((item, index) => {
 
         const taskContainerEl = document.createElement('div');
 
@@ -62,20 +76,19 @@ function updateDisplay(list) {
         const taskTextContainerEl = document.createElement('span'); // change to div?
 
         // If the item's done flag is set to true:
-        if (item['done'] === true) {
+        if (item.done === true) {
             // Wrap the text in a strikethrough tag:
-            taskTextContainerEl.innerHTML = `<s>${item['task']}</s>`;
+            taskTextContainerEl.innerHTML = `<s>${item.task}</s>`;
             // Check the checkbox:
             toggleDoneInputEl.setAttribute('checked', 'on');
             // Add the "done" class to this task's text container:
             taskTextContainerEl.classList.add('done');
         } else {
             // If not, then don't wrap the text in a strikethrough tag:
-            taskTextContainerEl.innerHTML = item['task'];
+            taskTextContainerEl.innerHTML = item.task;
             /*  (There's no need to remove the "done" class or uncheck the checkbox,
                 as the class isn't assigned by default, and the checkbox is unchecked by default.)
             */
-
         }
 
         const deleteButtonEl = document.createElement('input');
@@ -89,19 +102,7 @@ function updateDisplay(list) {
         outputElement.append(taskContainerEl);
 
         toggleDoneInputEl.addEventListener("input", () => {
-            /*
-                indexOf *seems* to be a safe/reliable way to do this?
-                (i.e. it won't confuse "seemingly-identical" elements.)
-
-                Could we set this const outside of this function (i.e. in the parent scope)?
-                It might cause problems (because if we delete an item's element from the array,
-                its index will change, so that will quickly get out of sync).
-
-                But given we updateDisplay on every event anyway, might it work?
-            */
-            const currentItemIndex = items.indexOf(item);
-            list.toggleItemDone(currentItemIndex);
-
+            list.toggleItemDone(index);
             /*  This "redraws" everything (for this list), every time an item is toggled as done.
                 Not necessarily the best approach, but it probably only matters if there are
                 *lots* of items on the list, and the user agent is low on resources?
@@ -110,12 +111,11 @@ function updateDisplay(list) {
         });
 
         deleteButtonEl.addEventListener("click", () => {
-            const currentItemIndex = items.indexOf(item);
-            list.deleteItem(currentItemIndex);
+            list.deleteItem(index);
             updateDisplay(list);
         });
 
-    }
+    });
 
 }
 
@@ -126,7 +126,7 @@ function handleFormInput(form) {
 
     const myData = Object.fromEntries(myFormData);
 
-    toDoList.addItem(myData['task']);
+    toDoList.addItem(myData.task);
 
     // Empty the input
     form.reset();
