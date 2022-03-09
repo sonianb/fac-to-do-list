@@ -13,6 +13,8 @@ class ToDoList {
      */
 
     constructor(listName, useLocalStorage) {
+        this.useLocalStorage = useLocalStorage;
+        this.listName = listName;
         // A listName must be provided to make use of local storage
         if (listName) {
             const tempTodo = localStorage.getItem(listName);
