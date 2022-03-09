@@ -49,12 +49,14 @@ main {
 #submit-btn {
     font-family: inherit;
     padding: 0.5rem 0.8rem;
+    height: 2.7rem;
 }
 
 input[type=text] {
     padding: 12px 20px;
     margin: 8px 0;
     border-radius: 5px;
+    width: 75%
 }
 
 .list-items {
@@ -62,4 +64,42 @@ input[type=text] {
     justify-content: space-between;
     gap: 12px 10px;
     margin: 0.6rem;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    width: 2em;
+    height: 2em;
+    border: 1px solid gray;
+    border-radius: 4px;
+    appearance: none;
+    outline: 0;
+    cursor: pointer;
+    transition: background-color 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
+}
+
+input[type="checkbox"]::before {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 2px;
+    left: 7px;
+    width: 8px;
+    height: 14px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+}
+
+input[type="checkbox"]:checked {
+    color: white;
+    border-color: #e17f93;
+    background-color: #e17f93;
+}
+
+input[type="checkbox"]:checked::before {
+    opacity: 1;
+    transition: opacity 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
 }
