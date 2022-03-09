@@ -142,3 +142,7 @@ myForm.addEventListener('submit', (event) => {
     event.preventDefault();
     handleFormInput(event.target);
 });
+
+
+// Call this on page load, so that a saved list is displayed if it exists
+updateDisplay(toDoList);
