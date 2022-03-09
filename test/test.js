@@ -71,9 +71,17 @@ test("toggleItemDone(index) should toggle the boolean value of the 'done' key fo
 
 //------------------------Testing updateDisplay function-------------------------------------
 
-test("", () => {
+test("updateDisplay should add a list item to the document", () => {
     // Set up test list (we shouldn't use localStorage):
     const testList = new ToDoList();
     testList.addItem("Test item");
-    //const actual0 = document.querySelector('section');
+    updateDisplay(testList);
+    // One approach is to compare the HTML, as a string:
+    const actual0 = document.querySelector('section').innerHTML;
+    const expected0 = '<div><input type="checkbox"><span>Test item</span><input type="button" value="X"></div>';
+    equal(actual0, expected0);
+    /*  A problem with this approach is that if we change what markup is produced,
+        (i.e. by changing the updateDisplay function), we have to manually edit our test.
+        Ideally, the test would be able to get an expected result another way?
+    */
 });
