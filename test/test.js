@@ -99,3 +99,14 @@ test("updateDisplay should change the document to show that a list item is marke
         Ideally, the test would be able to get an expected result another way?
     */
 });
+
+test("updateDisplay should change the document to show that a list item has been deleted", () => {
+    const testList = new ToDoList();
+    testList.addItem("Test item 3a");
+    testList.addItem("Test item 3b");
+    testList.deleteItem(0);
+    updateDisplay(testList);
+    const actual0 = document.querySelector('section').innerHTML;
+    const expected0 = '<div><input type="checkbox"><span>Test item 3b</span><input type="button" value="X"></div>';
+    equal(actual0, expected0);
+});
