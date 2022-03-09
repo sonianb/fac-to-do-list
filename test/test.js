@@ -118,3 +118,16 @@ test("updateDisplay should add a checkbox to the document with an 'input' event 
     const expected0 = '<div><input type="checkbox" checked="on"><span class="done"><s>Test item 4</s></span><input type="button" value="X"></div>';
     equal(actual0, expected0);
 });
+
+test("updateDisplay should add a button to the document with a 'click' event listener that deletes a list item", () => {
+    const testList = new ToDoList();
+    testList.addItem("Test item 5a");
+    testList.addItem("Test item 5b");
+    updateDisplay(testList);
+    const testEl = document.querySelectorAll('input[type=button]')[0];
+    const inputEvent = new InputEvent('click');
+    testEl.dispatchEvent(inputEvent);
+    const actual0 = document.querySelector('section').innerHTML;
+    const expected0 = '<div><input type="checkbox"><span>Test item 5b</span><input type="button" value="X"></div>';
+    equal(actual0, expected0);
+});
