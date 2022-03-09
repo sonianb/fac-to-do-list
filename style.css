@@ -18,6 +18,10 @@ body {
     align-items: center;
 }
 
+main {
+    width: 100%;
+}
+
 .form-container {
     background-color: #f3f3f3;
     max-width: 980px;
@@ -29,6 +33,13 @@ body {
     align-items: center;
     margin-top: 2rem;
     height: max-content;
+}
+
+.form-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .icons {
