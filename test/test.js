@@ -135,3 +135,20 @@ test("updateDisplay should add a button to the document with a 'click' event lis
     const expected0 = '<div><input type="checkbox"><span>Test item 5b</span><input type="button" value="X"></div>';
     equal(actual0, expected0);
 });
+
+
+//------------------------Testing handleFormInput function-------------------------------------
+
+test("handleFormInput should add a new item to the list", () => {
+    // This won't work unless the form can be told to add to the testList:
+    const testList = new ToDoList();
+    const testTextInputEl = myForm.querySelector('#task');
+    // const testSubmitButtonEl = myForm.querySelector('#submit-btn');
+    testTextInputEl.value = 'Testing';
+    const inputEvent = new InputEvent('submit');
+    myForm.dispatchEvent(inputEvent);
+    console.log(testList);
+    const actual0 = testList.toDos[0].task;
+    const expected0 = 'Testing';
+    equal(actual0, expected0);
+});
