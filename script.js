@@ -12,11 +12,19 @@ class ToDoList {
      * @param {*} useLocalStorage boolean, determines whether local storage should be used
      */
 
-    constructor(useLocalStorage) {
-        const tempTodo = localStorage.getItem('to-do-list')
-        if (useLocalStorage && tempTodo) { //if item exists, do JSONparse to transform to obj to initialise in toDos
-            this.toDos = JSON.parse(tempTodo);
+    constructor(listName, useLocalStorage) {
+        // A listName must be provided to make use of local storage
+        if (listName) {
+            const tempTodo = localStorage.getItem(listName);
+            if (useLocalStorage && tempTodo) { //if item exists, do JSONparse to transform to obj to initialise in toDos
+                this.toDos = JSON.parse(tempTodo);
+            } else {
+                // If a listName is provided but there's no localStorage data, set up an empty
+                // array for this todo list:
+                this.toDos = [];
+            }
         } else {
+            // If no listName is provided, set up an empty array for this todo list:
             this.toDos = [];
         }
     }
@@ -43,12 +51,12 @@ class ToDoList {
         // Check if useLocalStorage is enabled for this instance, so we only save to
         // local storage if the list requests it.
         if (this.useLocalStorage) {
-            window.localStorage.setItem("to-do-list", JSON.stringify(this.toDos))
+            window.localStorage.setItem(this.listName, JSON.stringify(this.toDos))
         }
     }
 }
 
-const toDoList = new ToDoList(true);
+const toDoList = new ToDoList('defaultList', true);
 
 // Joe: update display/DOM
 
