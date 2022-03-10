@@ -80,6 +80,7 @@ function updateDisplay(list) {
 
             const toggleDoneInputEl = document.createElement('input');
             toggleDoneInputEl.setAttribute('type', 'checkbox');
+            //toggleDoneInputEl.classList.add('list-item-toggle-done');
 
             const taskTextContainerEl = document.createElement('div'); // change to div?
             taskTextContainerEl.classList.add('list-item-text');
