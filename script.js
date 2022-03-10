@@ -133,7 +133,7 @@ function handleFormInput(form) {
     toDoList.addItem(myData.task);
 
     // Empty the input
-    form.reset();
+    document.querySelector('#task').value = '';
 
     updateDisplay(toDoList);
 
