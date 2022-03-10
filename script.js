@@ -57,7 +57,7 @@ class ToDoList {
 
 // Currently we set up one default list, but it would be relatively straightforward
 // to add functionality to allow the user to create multiple lists.
-const toDoList = new ToDoList('defaultList', true);
+window.toDoList = new ToDoList('defaultList', true);
 
 
 function updateDisplay(list) {
@@ -131,12 +131,16 @@ function handleFormInput(form) {
 
     const myData = Object.fromEntries(myFormData);
 
-    toDoList.addItem(myData.task);
+    const listToUse = myData.list;
+
+    //toDoList.addItem(myData.task);
+    window[listToUse].addItem(myData.task);
 
     // Empty the input
     document.querySelector('#task').value = '';
 
-    updateDisplay(toDoList);
+    //updateDisplay(toDoList);
+    updateDisplay(window[listToUse]);
 
 }
 
