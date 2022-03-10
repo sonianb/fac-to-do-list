@@ -48,16 +48,28 @@ main {
 
 #submit-btn {
     font-family: inherit;
-    font-size: 0.95rem;
-    padding: 0.5rem 0.8rem;
-    height: 2.7rem;
+    background: transparent;
+    border: 2px solid darkgray;
+    border-radius: 1.7em;
+    color: black;
+    font-size: 1.7rem;
+    height: 37px;
+    padding: 0;
+    text-align: center;
+    width: 37px;
+    cursor: pointer;
+}
+
+.submit-btn-container {
+    display: flex;
+    align-items: center;
 }
 
 input[type=text] {
     padding: 12px 20px;
     margin: 8px 0;
     border-radius: 5px;
-    width: 75%
+    width: 85%
 }
 
 .list-items {
