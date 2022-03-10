@@ -49,7 +49,16 @@ main {
 
 #submit-btn {
     font-family: inherit;
-    padding: 0.5rem 0.8rem;
+    background: transparent;
+    border: 2px solid darkgray;
+    border-radius: 1.7em;
+    color: black;
+    font-size: 1.7rem;
+    height: 37px;
+    padding: 0;
+    text-align: center;
+    width: 37px;
+    cursor: pointer;
 }
 
 input[type=text] {
