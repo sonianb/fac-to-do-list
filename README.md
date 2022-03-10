@@ -19,6 +19,8 @@ A to-do list project with an emphasis on automated testing, by [Sonia](https://g
 
 Open the browser dev tools console to see the various test results.
 
+(You can ignore what the rest of the page looks like.)
+
 ## Known issues
 
 ## Project brief
