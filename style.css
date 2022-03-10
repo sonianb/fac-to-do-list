@@ -22,6 +22,11 @@ main {
     width: 100%;
 }
 
+section {
+    border-top: 1px solid darkgrey;
+    padding-top: 1rem;
+}
+
 .form-container {
     background-color: #f3f3f3;
     max-width: 480px;
@@ -92,7 +97,7 @@ input[type="checkbox"] {
     border: 1px solid gray;
     border-radius: 4px;
     appearance: none;
-    outline: 0;
+    /* outline: 0; */
     cursor: pointer;
     transition: background-color 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
 }
