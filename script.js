@@ -67,18 +67,23 @@ function updateDisplay(list) {
     const items = list.getAllItems();
     outputElement.innerHTML = '';
 
+    const listElement = document.createElement('ul');
+    listElement.innerHTML = '';
+
     items.forEach((item, index) => {
 
         // Only do stuff if this item isn't marked as done, or it is but the done filter is off
         if ((item.done === false) || (item.done === true && myFilterControl.checked === false)) {
 
-            const taskContainerEl = document.createElement('div');
+            const taskContainerEl = document.createElement('li');
             taskContainerEl.classList.add('list-items');
 
             const toggleDoneInputEl = document.createElement('input');
             toggleDoneInputEl.setAttribute('type', 'checkbox');
+            //toggleDoneInputEl.classList.add('list-item-toggle-done');
 
-            const taskTextContainerEl = document.createElement('span'); // change to div?
+            const taskTextContainerEl = document.createElement('div'); // change to div?
+            taskTextContainerEl.classList.add('list-item-text');
 
             // If the item's done flag is set to true:
             if (item.done === true) {
@@ -106,7 +111,7 @@ function updateDisplay(list) {
             taskContainerEl.append(taskTextContainerEl);
             taskContainerEl.append(deleteButtonEl);
 
-            outputElement.append(taskContainerEl);
+            listElement.append(taskContainerEl);
 
             toggleDoneInputEl.addEventListener("input", () => {
                 list.toggleItemDone(index);
@@ -125,6 +130,8 @@ function updateDisplay(list) {
         }
 
     });
+
+    outputElement.append(listElement);
 
 }
 

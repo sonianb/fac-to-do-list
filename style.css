@@ -27,6 +27,11 @@ section {
     padding-top: 1rem;
 }
 
+section > ul {
+    margin: 0;
+    padding-left: 0;
+}
+
 .form-container {
     background-color: #f3f3f3;
     max-width: 480px;
@@ -88,6 +93,11 @@ input[type=text] {
     font-size: 1.2rem;
     flex-wrap: wrap;
     /* flex-wrap is probably not the best to display long inputs, have to come up with sth better */
+}
+
+.list-item-text {
+    width: 20rem;
+    /* text-align: left; */
 }
 
 input[type="checkbox"] {

@@ -82,7 +82,7 @@ test("updateDisplay should add a list item to the document", () => {
     testList.addItem("Test item 1");
     updateDisplay(testList);
     const actual0 = document.querySelector('section').innerHTML;
-    const expected0 = '<div><input type="checkbox"><span>Test item 1</span><input type="button" value="X"></div>';
+    const expected0 = '<ul><li class="list-items"><input type="checkbox"><div class="list-item-text">Test item 1</div><input type="button" class="deleteBtn" value="—"></li></ul>';
     equal(actual0, expected0);
 });
 
@@ -92,7 +92,7 @@ test("updateDisplay should change the document to show that a list item is marke
     testList.toggleItemDone(0);
     updateDisplay(testList);
     const actual0 = document.querySelector('section').innerHTML;
-    const expected0 = '<div><input type="checkbox" checked="on"><span class="done"><s>Test item 2</s></span><input type="button" value="X"></div>';
+    const expected0 = '<ul><li class="list-items"><input type="checkbox" checked="on"><div class="list-item-text done"><s>Test item 2</s></div><input type="button" class="deleteBtn" value="—"></li></ul>';
     equal(actual0, expected0);
 });
 
@@ -103,7 +103,7 @@ test("updateDisplay should change the document to show that a list item has been
     testList.deleteItem(0);
     updateDisplay(testList);
     const actual0 = document.querySelector('section').innerHTML;
-    const expected0 = '<div><input type="checkbox"><span>Test item 3b</span><input type="button" value="X"></div>';
+    const expected0 = '<ul><li class="list-items"><input type="checkbox"><div class="list-item-text">Test item 3b</div><input type="button" class="deleteBtn" value="—"></li></ul>';
     equal(actual0, expected0);
 });
 
@@ -112,13 +112,13 @@ test("updateDisplay should add a checkbox to the document with an 'input' event 
     testList.addItem("Test item 4");
     updateDisplay(testList);
     // Get the checkbox input element (there's only one):
-    const testEl = document.querySelector('section > div > input[type=checkbox]');
+    const testEl = document.querySelector('section > ul > li > input[type=checkbox]');
     // Make a new 'input' event:
     const inputEvent = new InputEvent('input');
     // Trigger (dispatch) this 'input' event on the checkbox:
     testEl.dispatchEvent(inputEvent);
     const actual0 = document.querySelector('section').innerHTML;
-    const expected0 = '<div><input type="checkbox" checked="on"><span class="done"><s>Test item 4</s></span><input type="button" value="X"></div>';
+    const expected0 = '<ul><li class="list-items"><input type="checkbox" checked="on"><div class="list-item-text done"><s>Test item 4</s></div><input type="button" class="deleteBtn" value="—"></li></ul>';
     equal(actual0, expected0);
 });
 
@@ -132,7 +132,7 @@ test("updateDisplay should add a button to the document with a 'click' event lis
     const inputEvent = new InputEvent('click');
     testEl.dispatchEvent(inputEvent);
     const actual0 = document.querySelector('section').innerHTML;
-    const expected0 = '<div><input type="checkbox"><span>Test item 5b</span><input type="button" value="X"></div>';
+    const expected0 = '<ul><li class="list-items"><input type="checkbox"><div class="list-item-text">Test item 5b</div><input type="button" class="deleteBtn" value="—"></li></ul>';
     equal(actual0, expected0);
 });
 
