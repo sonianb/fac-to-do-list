@@ -8,7 +8,7 @@
 }
 
 h1 {
-    font-size: clamp(1.5rem, 2.5vw, 2rem); ;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
 body {
@@ -18,9 +18,13 @@ body {
     align-items: center;
 }
 
+main {
+    width: 100%;
+}
+
 .form-container {
     background-color: #f3f3f3;
-    max-width: 700px;
+    max-width: 480px;
     padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid;
@@ -28,7 +32,16 @@ body {
     flex-direction: column;
     align-items: center;
     margin-top: 2rem;
-    height: max-content;
+    max-height: fit-content;
+}
+
+
+.form-layout {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 .icons {
@@ -37,11 +50,89 @@ body {
 
 #submit-btn {
     font-family: inherit;
-    padding: 0.5rem 0.8rem;
+    background: transparent;
+    border: 2px solid darkgray;
+    border-radius: 1.7em;
+    color: black;
+    font-size: 1.7rem;
+    height: 37px;
+    padding: 0;
+    text-align: center;
+    width: 37px;
+    cursor: pointer;
+}
+
+.submit-btn-container {
+    display: flex;
+    align-items: center;
 }
 
 input[type=text] {
     padding: 12px 20px;
     margin: 8px 0;
     border-radius: 5px;
-  }
+    width: 80%
+}
+
+.list-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px 10px;
+    margin: 0.2rem;
+    font-size: 1.2rem;
+    flex-wrap: wrap;
+    /* flex-wrap is probably not the best to display long inputs, have to come up with sth better */
+}
+
+input[type="checkbox"] {
+    position: relative;
+    width: 2em;
+    height: 2em;
+    border: 1px solid gray;
+    border-radius: 4px;
+    appearance: none;
+    outline: 0;
+    cursor: pointer;
+    transition: background-color 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
+}
+
+input[type="checkbox"]::before {
+    position: absolute;
+    content: '';
+    display: block;
+    top: 2px;
+    left: 7px;
+    width: 8px;
+    height: 14px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+}
+
+input[type="checkbox"]:checked {
+    color: white;
+    border-color: #a4deaf;
+    background-color: #a4deaf;
+}
+
+input[type="checkbox"]:checked::before {
+    opacity: 1;
+    transition: opacity 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
+}
+
+.deleteBtn {
+    background: transparent;
+    border: 2px solid #e17f93;
+    border-radius: 2em;
+    color: #e17f93;
+    font-size: 0.8rem;
+    height: 28px;
+    margin: 0 0 8px;
+    padding: 0;
+    text-align: center;
+    width: 28px;
+    cursor: pointer;
+}

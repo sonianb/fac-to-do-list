@@ -73,6 +73,7 @@ function updateDisplay(list) {
         if ((item.done === false) || (item.done === true && myFilterControl.checked === false)) {
 
             const taskContainerEl = document.createElement('div');
+            taskContainerEl.classList.add('list-items');
 
             const toggleDoneInputEl = document.createElement('input');
             toggleDoneInputEl.setAttribute('type', 'checkbox');
@@ -97,7 +98,9 @@ function updateDisplay(list) {
 
             const deleteButtonEl = document.createElement('input');
             deleteButtonEl.setAttribute('type', 'button');
-            deleteButtonEl.setAttribute('value', 'X');
+            deleteButtonEl.classList.add('deleteBtn')
+            deleteButtonEl.setAttribute('value', '—');
+
 
             taskContainerEl.append(toggleDoneInputEl);
             taskContainerEl.append(taskTextContainerEl);
