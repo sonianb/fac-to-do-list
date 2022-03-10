@@ -147,8 +147,8 @@ function addHiddenInputEl(form, listIdentifier) {
     return newEl;
 }
 
-// For some reason, the checkbox isn't getting checked? :(
-/* test("updateDisplay should hide items marked done (not add them to document) if the filter is enabled", () => {
+
+test("updateDisplay should hide items marked done (not add them to document) if the filter is enabled", () => {
     window.testList = new ToDoList();
 
     const myForm = document.querySelector('form');
@@ -160,13 +160,22 @@ function addHiddenInputEl(form, listIdentifier) {
     updateDisplay(testList);
 
     const testEl = document.querySelector('#filter');
+    /*  It seems the checkbox has to be checked separately - dispatching the 'input' event
+        on it won't do this. (And it needs to be checked before the event is dispatched!)
+        (If it isn't checked, the if in updateDisplay appends the list item to the DOM.)
+    */
+    testEl.checked = true;
     const inputEvent = new InputEvent('input');
-    testEl.dispatchEvent(inputEvent); */
-    //const actual0 = document.querySelector('section').innerHTML;
-    // etc.
+    testEl.dispatchEvent(inputEvent);
 
-    //newHiddenInputEl.remove();
-//});
+    const actual0 = document.querySelector('.list-item-text').textContent;
+    const expected0 = 'Test item two';
+    equal(actual0, expected0);
+
+    // Could we form.reset instead?
+    testEl.checked = false;
+    newHiddenInputEl.remove();
+});
 
 
 //------------------------Testing handleFormInput function-------------------------------------
