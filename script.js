@@ -68,52 +68,56 @@ function updateDisplay(list) {
 
     items.forEach((item, index) => {
 
-        const taskContainerEl = document.createElement('div');
+        if ((item.done === false) || (item.done === true && myFilterControl.checked === false)) {
 
-        const toggleDoneInputEl = document.createElement('input');
-        toggleDoneInputEl.setAttribute('type', 'checkbox');
+            const taskContainerEl = document.createElement('div');
 
-        const taskTextContainerEl = document.createElement('span'); // change to div?
+            const toggleDoneInputEl = document.createElement('input');
+            toggleDoneInputEl.setAttribute('type', 'checkbox');
 
-        // If the item's done flag is set to true:
-        if (item.done === true) {
-            // Wrap the text in a strikethrough tag:
-            taskTextContainerEl.innerHTML = `<s>${item.task}</s>`;
-            // Check the checkbox:
-            toggleDoneInputEl.setAttribute('checked', 'on');
-            // Add the "done" class to this task's text container:
-            taskTextContainerEl.classList.add('done');
-        } else {
-            // If not, then don't wrap the text in a strikethrough tag:
-            taskTextContainerEl.innerHTML = item.task;
-            /*  (There's no need to remove the "done" class or uncheck the checkbox,
-                as the class isn't assigned by default, and the checkbox is unchecked by default.)
-            */
+            const taskTextContainerEl = document.createElement('span'); // change to div?
+
+            // If the item's done flag is set to true:
+            if (item.done === true) {
+                // Wrap the text in a strikethrough tag:
+                taskTextContainerEl.innerHTML = `<s>${item.task}</s>`;
+                // Check the checkbox:
+                toggleDoneInputEl.setAttribute('checked', 'on');
+                // Add the "done" class to this task's text container:
+                taskTextContainerEl.classList.add('done');
+            } else {
+                // If not, then don't wrap the text in a strikethrough tag:
+                taskTextContainerEl.innerHTML = item.task;
+                /*  (There's no need to remove the "done" class or uncheck the checkbox,
+                    as the class isn't assigned by default, and the checkbox is unchecked by default.)
+                */
+            }
+
+            const deleteButtonEl = document.createElement('input');
+            deleteButtonEl.setAttribute('type', 'button');
+            deleteButtonEl.setAttribute('value', 'X');
+
+            taskContainerEl.append(toggleDoneInputEl);
+            taskContainerEl.append(taskTextContainerEl);
+            taskContainerEl.append(deleteButtonEl);
+
+            outputElement.append(taskContainerEl);
+
+            toggleDoneInputEl.addEventListener("input", () => {
+                list.toggleItemDone(index);
+                /*  This "redraws" everything (for this list), every time an item is toggled as done.
+                    Not necessarily the best approach, but it probably only matters if there are
+                    *lots* of items on the list, and the user agent is low on resources?
+                */
+                updateDisplay(list);
+            });
+
+            deleteButtonEl.addEventListener("click", () => {
+                list.deleteItem(index);
+                updateDisplay(list);
+            });
+
         }
-
-        const deleteButtonEl = document.createElement('input');
-        deleteButtonEl.setAttribute('type', 'button');
-        deleteButtonEl.setAttribute('value', 'X');
-
-        taskContainerEl.append(toggleDoneInputEl);
-        taskContainerEl.append(taskTextContainerEl);
-        taskContainerEl.append(deleteButtonEl);
-
-        outputElement.append(taskContainerEl);
-
-        toggleDoneInputEl.addEventListener("input", () => {
-            list.toggleItemDone(index);
-            /*  This "redraws" everything (for this list), every time an item is toggled as done.
-                Not necessarily the best approach, but it probably only matters if there are
-                *lots* of items on the list, and the user agent is low on resources?
-            */
-            updateDisplay(list);
-        });
-
-        deleteButtonEl.addEventListener("click", () => {
-            list.deleteItem(index);
-            updateDisplay(list);
-        });
 
     });
 
