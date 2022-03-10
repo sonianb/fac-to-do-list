@@ -119,3 +119,17 @@ input[type="checkbox"]:checked::before {
     opacity: 1;
     transition: opacity 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
 }
+
+.deleteBtn {
+    background: transparent;
+    border: 2px solid #e17f93;
+    border-radius: 2em;
+    color: #e17f93;
+    font-size: 0.8rem;
+    height: 28px;
+    margin: 0 0 8px;
+    padding: 0;
+    text-align: center;
+    width: 28px;
+    cursor: pointer;
+}
