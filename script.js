@@ -68,6 +68,7 @@ function updateDisplay(list) {
 
     items.forEach((item, index) => {
 
+        // Only do stuff if this item isn't marked as done, or it is but the done filter is off
         if ((item.done === false) || (item.done === true && myFilterControl.checked === false)) {
 
             const taskContainerEl = document.createElement('div');
