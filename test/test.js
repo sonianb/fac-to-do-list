@@ -112,7 +112,7 @@ test("updateDisplay should add a checkbox to the document with an 'input' event 
     testList.addItem("Test item 4");
     updateDisplay(testList);
     // Get the checkbox input element (there's only one):
-    const testEl = document.querySelector('input[type=checkbox]');
+    const testEl = document.querySelector('section > div > input[type=checkbox]');
     // Make a new 'input' event:
     const inputEvent = new InputEvent('input');
     // Trigger (dispatch) this 'input' event on the checkbox:
@@ -135,6 +135,21 @@ test("updateDisplay should add a button to the document with a 'click' event lis
     const expected0 = '<div><input type="checkbox"><span>Test item 5b</span><input type="button" value="X"></div>';
     equal(actual0, expected0);
 });
+
+// This test has the same problem as the handleFormInput one:
+// the test list to use is hard-coded in script.js.
+/* test("updateDisplay should hide items marked done (not add them to document) if the filter is enabled", () => {
+    const testList = new ToDoList();
+    testList.addItem("Test item one");
+    testList.addItem("Test item two");
+    testList.toggleItemDone(0);
+    updateDisplay(testList);
+    const testEl = document.querySelector('#filter');
+    const inputEvent = new InputEvent('input');
+    testEl.dispatchEvent(inputEvent);
+    const actual0 = document.querySelector('section').innerHTML;
+    // etc.
+}); */
 
 
 //------------------------Testing handleFormInput function-------------------------------------
