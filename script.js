@@ -144,5 +144,12 @@ myForm.addEventListener('submit', (event) => {
 });
 
 
+const myFilterControl = document.querySelector('#filter');
+
+myFilterControl.addEventListener('input', () => {
+    updateDisplay(toDoList);
+});
+
+
 // Call this on page load, so that a saved list is displayed if it exists
 updateDisplay(toDoList);
