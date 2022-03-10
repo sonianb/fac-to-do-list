@@ -112,7 +112,7 @@ test("updateDisplay should add a checkbox to the document with an 'input' event 
     testList.addItem("Test item 4");
     updateDisplay(testList);
     // Get the checkbox input element (there's only one):
-    const testEl = document.querySelector('input[type=checkbox]');
+    const testEl = document.querySelector('section > div > input[type=checkbox]');
     // Make a new 'input' event:
     const inputEvent = new InputEvent('input');
     // Trigger (dispatch) this 'input' event on the checkbox:
