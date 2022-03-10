@@ -154,22 +154,24 @@ test("updateDisplay should add a button to the document with a 'click' event lis
 
 //------------------------Testing handleFormInput function-------------------------------------
 
-//test("handleFormInput should add a new item to the list", () => {
-    /*  We can't use a test list here unless we change how the handleFormInput function works.
-        e.g. it could read a hidden input element in the form which tells it what form to use.
-        (And we could override that hidden element in the test.)
+test("handleFormInput should add a new item to the list", () => {
+    window.testList = new ToDoList();
 
-        In lieu of that, could try just adding an item to the default list? Snags:
-            - Need to find its index
-            - Need to remove it after we're done
-            - Risk of messing up working list if tests are run (is that really a problem?)
-    */
-    /* const testTextInputEl = myForm.querySelector('#task');
+    const myForm = document.querySelector('form');
+
+    const newHiddenInputEl = document.createElement('input');
+    newHiddenInputEl.setAttribute('type', 'hidden');
+    newHiddenInputEl.setAttribute('name', 'list');
+    newHiddenInputEl.setAttribute('value', 'testList');
+    myForm.prepend(newHiddenInputEl);
+
+    const testTextInputEl = myForm.querySelector('#task');
     testTextInputEl.value = 'Testing';
+
     const inputEvent = new InputEvent('submit');
     myForm.dispatchEvent(inputEvent);
-    console.log(toDoList.toDos);
+
     const actual0 = testList.toDos[0].task;
     const expected0 = 'Testing';
-    equal(actual0, expected0); */
-//});
+    equal(actual0, expected0);
+});
