@@ -136,8 +136,17 @@ test("updateDisplay should add a button to the document with a 'click' event lis
     equal(actual0, expected0);
 });
 
-// This test has the same problem as the handleFormInput one:
-// the test list to use is hard-coded in script.js.
+
+// Helper function for a couple of tests:
+function addHiddenInputEl(form, listIdentifier) {
+    const newEl = document.createElement('input');
+    newEl.setAttribute('type', 'hidden');
+    newEl.setAttribute('name', 'list');
+    newEl.setAttribute('value', listIdentifier);
+    form.prepend(newEl);
+    return newEl;
+}
+
 /* test("updateDisplay should hide items marked done (not add them to document) if the filter is enabled", () => {
     const testList = new ToDoList();
     testList.addItem("Test item one");
@@ -155,15 +164,13 @@ test("updateDisplay should add a button to the document with a 'click' event lis
 //------------------------Testing handleFormInput function-------------------------------------
 
 test("handleFormInput should add a new item to the list", () => {
+    // For this test, the list instance needs to be global
+    // (so it can be referred to programmatically)
     window.testList = new ToDoList();
 
     const myForm = document.querySelector('form');
 
-    const newHiddenInputEl = document.createElement('input');
-    newHiddenInputEl.setAttribute('type', 'hidden');
-    newHiddenInputEl.setAttribute('name', 'list');
-    newHiddenInputEl.setAttribute('value', 'testList');
-    myForm.prepend(newHiddenInputEl);
+    const newHiddenInputEl = addHiddenInputEl(myForm, 'testList');
 
     const testTextInputEl = myForm.querySelector('#task');
     testTextInputEl.value = 'Testing';
@@ -174,4 +181,7 @@ test("handleFormInput should add a new item to the list", () => {
     const actual0 = testList.toDos[0].task;
     const expected0 = 'Testing';
     equal(actual0, expected0);
+
+    // Remove the hidden input element now we're done, so we don't add more than one!
+    newHiddenInputEl.remove();
 });
