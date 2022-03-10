@@ -4,7 +4,7 @@ A to-do list project with an emphasis on automated testing, by [Sonia](https://g
 
 ## How to use it
 
-- [Visit the deployed site here](https://sonianb.github.io/fac-to-do-list/)
+- [Visit the deployed site here](https://sonianb.github.io/to-do-list/)
 - Enter text of a task you'd like to add to your list
 - Press enter/return or click "Add task"
 - Your task is added to the list
@@ -15,7 +15,7 @@ A to-do list project with an emphasis on automated testing, by [Sonia](https://g
 
 ### Tests
 
-[View the deployed test suite here](https://sonianb.github.io/fac-to-do-list/test/test.html)
+[View the deployed test suite here](https://sonianb.github.io/to-do-list/test/test.html)
 
 Open the browser dev tools console to see the various test results.
 
@@ -52,9 +52,9 @@ Build a to-do list tracker that allows users to create, complete, and delete tas
 
 [Sketches on Figma](https://www.figma.com/file/wCsxw4SBEjmGAlt2lSkMcl/FAC-to-do-list-project?node-id=0%3A1)
 
-## What went well
-
 ## Next steps
-
+- Accessibility testing
+- Improve integration testing
+- Ask user confirmation to delete items
 
 
