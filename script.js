@@ -57,7 +57,8 @@ class ToDoList {
 
 // Currently we set up one default list, but it would be relatively straightforward
 // to add functionality to allow the user to create multiple lists.
-const toDoList = new ToDoList('defaultList', true);
+const defaultListIdentifier = 'toDoList';
+window[defaultListIdentifier] = new ToDoList('defaultList', true);
 
 
 function updateDisplay(list) {
@@ -125,18 +126,26 @@ function updateDisplay(list) {
 }
 
 
-function handleFormInput(form) {
-
+function objFromFormData(form) {
     const myFormData = new FormData(form);
+    return(Object.fromEntries(myFormData));
+}
 
-    const myData = Object.fromEntries(myFormData);
 
-    toDoList.addItem(myData.task);
+function handleFormInput(form) {
+    
+    const myData = objFromFormData(form);
+
+    // The list to use can be specified by a (hidden) form input, name=list.
+    // If that's not specified, we use the default set above.
+    const listToUse = myData.list || defaultListIdentifier;
+
+    window[listToUse].addItem(myData.task);
 
     // Empty the input
     document.querySelector('#task').value = '';
 
-    updateDisplay(toDoList);
+    updateDisplay(window[listToUse]);
 
 }
 
@@ -151,10 +160,15 @@ myForm.addEventListener('submit', (event) => {
 
 const myFilterControl = document.querySelector('#filter');
 
-myFilterControl.addEventListener('input', () => {
-    updateDisplay(toDoList);
+myFilterControl.addEventListener('input', (event) => {
+    // Get the form that this filter control belongs to:
+    const myForm = event.target.form;
+    const myData = objFromFormData(myForm);
+    // Again, either use a specified list, or default:
+    const listToUse = myData.list || defaultListIdentifier;
+    updateDisplay(window[listToUse]);
 });
 
 
 // Call this on page load, so that a saved list is displayed if it exists
-updateDisplay(toDoList);
+updateDisplay(window[defaultListIdentifier]);

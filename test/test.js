@@ -136,40 +136,60 @@ test("updateDisplay should add a button to the document with a 'click' event lis
     equal(actual0, expected0);
 });
 
-// This test has the same problem as the handleFormInput one:
-// the test list to use is hard-coded in script.js.
+
+// Helper function for a couple of tests:
+function addHiddenInputEl(form, listIdentifier) {
+    const newEl = document.createElement('input');
+    newEl.setAttribute('type', 'hidden');
+    newEl.setAttribute('name', 'list');
+    newEl.setAttribute('value', listIdentifier);
+    form.prepend(newEl);
+    return newEl;
+}
+
+// For some reason, the checkbox isn't getting checked? :(
 /* test("updateDisplay should hide items marked done (not add them to document) if the filter is enabled", () => {
-    const testList = new ToDoList();
+    window.testList = new ToDoList();
+
+    const myForm = document.querySelector('form');
+    const newHiddenInputEl = addHiddenInputEl(myForm, 'testList');
+
     testList.addItem("Test item one");
     testList.addItem("Test item two");
     testList.toggleItemDone(0);
     updateDisplay(testList);
+
     const testEl = document.querySelector('#filter');
     const inputEvent = new InputEvent('input');
-    testEl.dispatchEvent(inputEvent);
-    const actual0 = document.querySelector('section').innerHTML;
+    testEl.dispatchEvent(inputEvent); */
+    //const actual0 = document.querySelector('section').innerHTML;
     // etc.
-}); */
+
+    //newHiddenInputEl.remove();
+//});
 
 
 //------------------------Testing handleFormInput function-------------------------------------
 
-//test("handleFormInput should add a new item to the list", () => {
-    /*  We can't use a test list here unless we change how the handleFormInput function works.
-        e.g. it could read a hidden input element in the form which tells it what form to use.
-        (And we could override that hidden element in the test.)
+test("handleFormInput should add a new item to the list", () => {
+    // For this test, the list instance needs to be global
+    // (so it can be referred to programmatically)
+    window.testList = new ToDoList();
 
-        In lieu of that, could try just adding an item to the default list? Snags:
-            - Need to find its index
-            - Need to remove it after we're done
-            - Risk of messing up working list if tests are run (is that really a problem?)
-    */
-    /* const testTextInputEl = myForm.querySelector('#task');
+    const myForm = document.querySelector('form');
+
+    const newHiddenInputEl = addHiddenInputEl(myForm, 'testList');
+
+    const testTextInputEl = myForm.querySelector('#task');
     testTextInputEl.value = 'Testing';
+
     const inputEvent = new InputEvent('submit');
     myForm.dispatchEvent(inputEvent);
-    console.log(toDoList.toDos);
+
     const actual0 = testList.toDos[0].task;
     const expected0 = 'Testing';
-    equal(actual0, expected0); */
-//});
+    equal(actual0, expected0);
+
+    // Remove the hidden input element now we're done, so we don't add more than one!
+    newHiddenInputEl.remove();
+});
