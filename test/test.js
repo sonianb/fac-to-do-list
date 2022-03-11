@@ -81,8 +81,8 @@ test("updateDisplay should add a list item to the document", () => {
     const testList = new ToDoList();
     testList.addItem("Test item 1");
     updateDisplay(testList);
-    const actual0 = document.querySelector('section').innerHTML;
-    const expected0 = '<ul><li class="list-items"><input type="checkbox"><div class="list-item-text">Test item 1</div><input type="button" class="deleteBtn" value="—"></li></ul>';
+    const actual0 = document.querySelector('.list-item-text').textContent;
+    const expected0 = 'Test item 1';
     equal(actual0, expected0);
 });
 
@@ -91,6 +91,7 @@ test("updateDisplay should change the document to show that a list item is marke
     testList.addItem("Test item 2");
     testList.toggleItemDone(0);
     updateDisplay(testList);
+    // Test for "done" class (and <s> tag?) instead.
     const actual0 = document.querySelector('section').innerHTML;
     const expected0 = '<ul><li class="list-items"><input type="checkbox" checked="on"><div class="list-item-text done"><s>Test item 2</s></div><input type="button" class="deleteBtn" value="—"></li></ul>';
     equal(actual0, expected0);
@@ -102,8 +103,8 @@ test("updateDisplay should change the document to show that a list item has been
     testList.addItem("Test item 3b");
     testList.deleteItem(0);
     updateDisplay(testList);
-    const actual0 = document.querySelector('section').innerHTML;
-    const expected0 = '<ul><li class="list-items"><input type="checkbox"><div class="list-item-text">Test item 3b</div><input type="button" class="deleteBtn" value="—"></li></ul>';
+    const actual0 = document.querySelector('.list-item-text').textContent;
+    const expected0 = 'Test item 3b';
     equal(actual0, expected0);
 });
 
@@ -117,6 +118,7 @@ test("updateDisplay should add a checkbox to the document with an 'input' event 
     const inputEvent = new InputEvent('input');
     // Trigger (dispatch) this 'input' event on the checkbox:
     testEl.dispatchEvent(inputEvent);
+    // Test for "done" class (and <s> tag?) instead.
     const actual0 = document.querySelector('section').innerHTML;
     const expected0 = '<ul><li class="list-items"><input type="checkbox" checked="on"><div class="list-item-text done"><s>Test item 4</s></div><input type="button" class="deleteBtn" value="—"></li></ul>';
     equal(actual0, expected0);
@@ -131,8 +133,8 @@ test("updateDisplay should add a button to the document with a 'click' event lis
     const testEl = document.querySelectorAll('input[type=button]')[0];
     const inputEvent = new InputEvent('click');
     testEl.dispatchEvent(inputEvent);
-    const actual0 = document.querySelector('section').innerHTML;
-    const expected0 = '<ul><li class="list-items"><input type="checkbox"><div class="list-item-text">Test item 5b</div><input type="button" class="deleteBtn" value="—"></li></ul>';
+    const actual0 = document.querySelector('.list-item-text').textContent;
+    const expected0 = 'Test item 5b';
     equal(actual0, expected0);
 });
 
@@ -147,8 +149,8 @@ function addHiddenInputEl(form, listIdentifier) {
     return newEl;
 }
 
-// For some reason, the checkbox isn't getting checked? :(
-/* test("updateDisplay should hide items marked done (not add them to document) if the filter is enabled", () => {
+
+test("updateDisplay should hide items marked done (not add them to document) if the filter is enabled", () => {
     window.testList = new ToDoList();
 
     const myForm = document.querySelector('form');
@@ -160,13 +162,22 @@ function addHiddenInputEl(form, listIdentifier) {
     updateDisplay(testList);
 
     const testEl = document.querySelector('#filter');
+    /*  It seems the checkbox has to be checked separately - dispatching the 'input' event
+        on it won't do this. (And it needs to be checked before the event is dispatched!)
+        (If it isn't checked, the if in updateDisplay appends the list item to the DOM.)
+    */
+    testEl.checked = true;
     const inputEvent = new InputEvent('input');
-    testEl.dispatchEvent(inputEvent); */
-    //const actual0 = document.querySelector('section').innerHTML;
-    // etc.
+    testEl.dispatchEvent(inputEvent);
 
-    //newHiddenInputEl.remove();
-//});
+    const actual0 = document.querySelector('.list-item-text').textContent;
+    const expected0 = 'Test item two';
+    equal(actual0, expected0);
+
+    // Could we form.reset instead?
+    testEl.checked = false;
+    newHiddenInputEl.remove();
+});
 
 
 //------------------------Testing handleFormInput function-------------------------------------
