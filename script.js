@@ -105,7 +105,7 @@ function updateDisplay(list) {
             deleteButtonEl.setAttribute('type', 'button');
             deleteButtonEl.classList.add('deleteBtn')
             deleteButtonEl.setAttribute('value', '—');
-
+            deleteButtonEl.ariaLabel = "Delete item";
 
             taskContainerEl.append(toggleDoneInputEl);
             taskContainerEl.append(taskTextContainerEl);
@@ -138,12 +138,12 @@ function updateDisplay(list) {
 
 function objFromFormData(form) {
     const myFormData = new FormData(form);
-    return(Object.fromEntries(myFormData));
+    return (Object.fromEntries(myFormData));
 }
 
 
 function handleFormInput(form) {
-    
+
     const myData = objFromFormData(form);
 
     // The list to use can be specified by a (hidden) form input, name=list.
