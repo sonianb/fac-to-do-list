@@ -105,7 +105,7 @@ function updateDisplay(list) {
             deleteButtonEl.setAttribute('type', 'button');
             deleteButtonEl.classList.add('deleteBtn')
             deleteButtonEl.setAttribute('value', '—');
-            deleteButtonEl.ariaLabel = "Delete item";
+            deleteButtonEl.setAttribute('aria-label', 'Delete item')
 
             taskContainerEl.append(toggleDoneInputEl);
             taskContainerEl.append(taskTextContainerEl);
