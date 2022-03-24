@@ -27,7 +27,7 @@ section {
     padding-top: 1rem;
 }
 
-section > ul {
+section>ul {
     margin: 0;
     padding-left: 0;
 }
@@ -129,8 +129,8 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked {
     color: white;
-    border-color: #a4deaf;
-    background-color: #a4deaf;
+    border-color: #2B701A;
+    background-color: #2B701A;
 }
 
 input[type="checkbox"]:checked::before {
@@ -140,9 +140,9 @@ input[type="checkbox"]:checked::before {
 
 .deleteBtn {
     background: transparent;
-    border: 2px solid #e17f93;
+    border: 2px solid #CF3050;
     border-radius: 2em;
-    color: #e17f93;
+    color: #CF3050;
     font-size: 0.8rem;
     height: 28px;
     margin: 0 0 8px;
